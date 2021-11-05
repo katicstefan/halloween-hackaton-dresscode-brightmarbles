@@ -1,0 +1,111 @@
+.App {
+  font-family: "Mochiy Pop One", "Fruktur", cursive, sans-serif;
+  text-align: center;
+}
+
+:root {
+  --background: #f6f6f5;
+  --lightShade: #f7fbf2;
+  --lightAccent: #d6b2a4;
+  --main: #bb915a;
+  --darkAccent: #cc4066;
+  --darkShade: #251e2e;
+  background-color: var(--background);
+}
+
+h1 {
+  color: var(--darkAccent);
+}
+
+h2 {
+  color: var(--darkShade);
+}
+
+.small-text {
+  color: var(--lightAccent);
+  font-size: 0.75em;
+}
+
+#dimensionInput {
+  font-family: "Mochiy Pop One", cursive, sans-serif;
+  color: var(--lightAccent);
+  background-color: var(--lightShade);
+
+  width: 10em;
+  height: 2em;
+  margin: 0;
+  padding: 0.25em 1em;
+  border: none;
+  border: 0.25em solid var(--lightAccent);
+  border-radius: 0.5em;
+  outline: none;
+
+  transition: all 0.2s ease-in-out;
+}
+
+#dimensionInput:hover {
+  box-shadow: 2px 2px 4px var(--lightAccent);
+  cursor: text;
+}
+
+#dimensionInput:focus {
+  color: var(--darkAccent);
+  border: 0.25em solid var(--darkAccent);
+  box-shadow: 2px 2px 4px var(--darkAccent);
+}
+
+.buttonPairs {
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+
+  color: var(--lightAccent);
+  background-color: var(--lightShade);
+  border: none;
+  box-shadow: 2px 2px 4px var(--lightAccent);
+
+  font-family: "Fruktur", cursive;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.buttonPairs:hover {
+  cursor: pointer;
+  color: var(--darkAccent);
+  box-shadow: 4px 4px 4px var(--darkAccent);
+  transform: scale(1.05);
+}
+
+/* .containerTable {
+  border: 2px solid black;
+} */
+
+table {
+  font-family: "Fruktur", cursive;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+tr,
+.tableRow {
+}
+
+td,
+.tableField {
+  color: var(--darkAccent);
+  background-color: var(--darkShade);
+
+  height: 5em;
+  padding: 0;
+  border: 4px solid var(--lightShade);
+
+  transition: all 0.15s ease-in-out;
+}
+
+.tableField:hover {
+  cursor: pointer;
+  /* border: 1px solid var(--darkAccent); */
+  box-shadow: inset 0 0 1.5em;
+}
