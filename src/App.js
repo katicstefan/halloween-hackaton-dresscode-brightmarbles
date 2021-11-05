@@ -1,6 +1,9 @@
+// Imports
 import "./styles.css";
 import React from "react";
+// import { factorsToString, valuesToString } from "./utils";
 
+// App
 function App() {
   const [dimension, setDimension] = React.useState(null); // N - dimenzija tabele NxN
   const [primes, setPrimes] = React.useState([]); // K - Cinioci broja N
@@ -52,15 +55,6 @@ function App() {
       }
     }
     return factors;
-  }
-
-  // funkcija koja kreira string od prostih cinioca
-  function factorsToString() {
-    var result = "";
-    for (var i of primes) {
-      result += `${i}, `;
-    }
-    return result.slice(0, result.length - 2);
   }
 
   // Event Handler - reaguje na klik na dugme za odabir broja parova
@@ -117,15 +111,6 @@ function App() {
     return array;
   }
 
-  // funkcija koja vraca string sa svim vrednostima iz niza 'values'
-  function valuesToString() {
-    var result = "";
-    for (var i of values) {
-      result += `${i}, `;
-    }
-    return result.slice(0, result.length - 2);
-  }
-
   return (
     <div className="App">
       <div className="containerDimension">
@@ -156,7 +141,7 @@ function App() {
         {dimension && (
           <div>
             <strong>Factors for N = {dimension}:</strong>
-            <h1>{factorsToString()}</h1>
+            <h1>{factorsToString(primes)}</h1>
           </div>
         )}
       </div> */}
@@ -183,7 +168,7 @@ function App() {
           <p>
             <strong>Generated values: </strong>
             <br />
-            <strong className="small-text">{valuesToString()}</strong>
+            <strong className="small-text">{valuesToString(values)}</strong>
           </p>
         )}
       </div> */}
