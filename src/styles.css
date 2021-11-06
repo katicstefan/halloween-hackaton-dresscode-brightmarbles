@@ -13,6 +13,10 @@
   background-color: var(--background);
 }
 
+/*
+  Typography
+*/
+
 h1 {
   color: var(--darkAccent);
 }
@@ -26,15 +30,24 @@ h2 {
   font-size: 0.75em;
 }
 
+.textAttention {
+  color: var(--darkAccent);
+}
+
+/* 
+  Elements
+*/
+
 #dimensionInput {
   font-family: "Mochiy Pop One", cursive, sans-serif;
+  text-align: center;
   color: var(--lightAccent);
   background-color: var(--lightShade);
 
-  width: 10em;
+  width: 4em;
   height: 2em;
   margin: 0;
-  padding: 0.25em 1em;
+  padding: 1em;
   border: none;
   border: 0.25em solid var(--lightAccent);
   border-radius: 0.5em;
@@ -54,58 +67,99 @@ h2 {
   box-shadow: 2px 2px 4px var(--darkAccent);
 }
 
-.buttonPairs {
-  width: 40px;
-  height: 40px;
-  margin: 10px;
+button.fun {
+  font-family: "Fruktur", cursive;
+  font-size: 1em;
+  transition: all 0.2s ease-in-out;
+}
 
+button {
+  margin: 2em;
+  padding: 0;
+  border-radius: 1em;
+}
+
+.small,
+button.small {
+  width: 3em;
+  height: 3em;
+}
+
+.medium,
+button.medium {
+  width: 6em;
+  height: 6em;
+}
+
+.large,
+button.large {
+  width: 10em;
+  height: 10em;
+}
+
+.pill,
+button.pill {
+  width: 14.2em;
+  height: 4.4em;
+  border-radius: 2em;
+}
+
+.light {
   color: var(--lightAccent);
   background-color: var(--lightShade);
   border: none;
   box-shadow: 2px 2px 4px var(--lightAccent);
-
-  font-family: "Fruktur", cursive;
-
-  transition: all 0.2s ease-in-out;
 }
 
-.buttonPairs:hover {
+.light:hover {
   cursor: pointer;
   color: var(--darkAccent);
   box-shadow: 4px 4px 4px var(--darkAccent);
   transform: scale(1.05);
 }
 
-/* .containerTable {
-  border: 2px solid black;
-} */
-
-table {
-  font-family: "Fruktur", cursive;
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-tr,
-.tableRow {
-}
-
-td,
-.tableField {
+.dark {
   color: var(--darkAccent);
   background-color: var(--darkShade);
+  border: none;
+  box-shadow: 2px 2px 4px var(--darkAccent);
+}
 
-  height: 5em;
-  padding: 0;
-  border: 4px solid var(--lightShade);
+.dark:hover {
+  cursor: pointer;
+  color: var(--lightAccent);
+  box-shadow: 4px 4px 4px var(--lightAccent);
+  transform: scale(1.05);
+}
+
+.containerTable {
+  font-family: "Fruktur", cursive;
+  display: inline;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.tableRow {
+  display: flex;
+  justify-content: center;
+}
+
+.tableField {
+  display: inline-block;
+  justify-content: center;
+  margin: 0.2em;
+  font-size: 1em;
+  width: 2.5em;
+  height: 4em;
+
+  color: var(--darkAccent);
+  background-color: var(--darkShade);
+  border-radius: 0.5em;
 
   transition: all 0.15s ease-in-out;
 }
 
 .tableField:hover {
   cursor: pointer;
-  /* border: 1px solid var(--darkAccent); */
   box-shadow: inset 0 0 1.5em;
 }

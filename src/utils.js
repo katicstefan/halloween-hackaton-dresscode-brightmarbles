@@ -1,24 +1,41 @@
-// funkcija koja kreira string od prostih cinioca
-export function factorsToString(primes) {
-  var result = "";
-  for (var i of primes) {
-    result += `${i}, `;
+// funkcija za racunanje svih prostih cinioca nekog broja
+export function primeFactor(n) {
+  let factors = [];
+  let divisor = 2;
+
+  while (n >= 2) {
+    if (n % divisor === 0) {
+      if (!factors.includes(divisor)) factors.push(divisor);
+      n = n / divisor;
+    } else {
+      divisor++;
+    }
   }
-  return result.slice(0, result.length - 2);
+  return factors;
 }
 
-// funkcija koja vraca string sa svim vrednostima iz niza 'values'
-export function valuesToString(values) {
-  var result = "";
-  for (var i of values) {
-    result += `${i}, `;
+// Fisher-Yates algoritam za mesanje (shuffle) clanova niza
+export function shuffle(array) {
+  var m = array.length,
+    t,
+    i;
+
+  // While there remain elements to shuffle…
+  while (m) {
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--);
+
+    // And swap it with the current element.
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
   }
-  return result.slice(0, result.length - 2);
+  return array;
 }
 
 const utils = {
-  factorsToString,
-  valuesToString
+  primeFactor,
+  shuffle
 };
 
 export default utils;

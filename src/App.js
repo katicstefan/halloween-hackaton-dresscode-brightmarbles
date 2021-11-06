@@ -1,33 +1,57 @@
 // Imports
 import "./styles.css";
 import React from "react";
-// import { factorsToString, valuesToString } from "./utils";
+import { shuffle, primeFactor } from "./utils";
 
 // App
 function App() {
   const [dimension, setDimension] = React.useState(null); // N - dimenzija tabele NxN
   const [primes, setPrimes] = React.useState([]); // K - Cinioci broja N
-  const [pairs, setPairs] = React.useState(null); // Broj istih kartica (jedan od cinioca K)
+  const [pairSize, setPairSize] = React.useState(null); // Broj istih kartica (jedan od cinioca K)
   const [values, setValues] = React.useState([]); // Vrednosti kartica
   const [table, setTable] = React.useState([[]]); // Tablica sa vrednostima (matrica NxN dimenzije)
+
+  const [stopwatch, setStopwatch] = React.useState(null); // Vrednost za vreme igranja
+  const [isPlaying, setIsPlaying] = React.useState(false); // Boolean koji oznacava pocetak igre
+  const [isStopped, setIsStopped] = React.useState(false); // Boolean koji oznacava da je igra zavrsena
 
   // Hook koji se poziva kada se 'dimension' promeni
   // Ovde se traze cinioci broja N
   React.useEffect(() => {
     setPrimes(primeFactor(dimension));
+    setIsPlaying(false);
+    setIsStopped(false);
   }, [dimension]);
 
   // Hook koji se poziva kada se 'primes' promeni
   // Odredjuje se broj istih kartica dalje
   React.useEffect(() => {
-    setPairs(null);
+    setPairSize(null);
+    setIsPlaying(false);
+    setIsStopped(false);
   }, [primes]);
 
-  // Hook koji se poziva kada se 'pairs' promeni
-  React.useEffect(() => {}, [pairs]);
+  // Hook koji se poziva kada se 'pairSize' promeni
+  React.useEffect(() => {
+    setIsPlaying(false);
+    setIsStopped(false);
+  }, [pairSize]);
 
-  // Hook koji se poziva kada se 'pairs' promeni
+  // Hook koji se poziva kada se 'values' promeni
   React.useEffect(() => {}, [values]);
+
+  React.useEffect(() => {
+    let interval = null;
+
+    if (isPlaying && !isStopped) {
+      interval = setInterval(() => {
+        setStopwatch((time) => time + 10);
+      }, 10);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [isPlaying, isStopped]);
 
   // Event handler - poziva se na promenu input polja za 'dimension' stanje
   function handleDimensionChange(e) {
@@ -38,39 +62,31 @@ function App() {
 
   // funkcija za validaciju vrednosti 'dimension' stanja
   function validateDimension(value) {
-    return !isNaN(value) && value > 1 ? true : false;
+    const minValue = 4,
+      maxValue = 16;
+
+    return !isNaN(value) && value >= minValue && value <= maxValue
+      ? true
+      : false;
   }
 
-  // funkcija za racunanje svih prostih cinioca nekog broja
-  function primeFactor(n) {
-    let factors = [];
-    let divisor = 2;
-
-    while (n >= 2) {
-      if (n % divisor === 0) {
-        if (!factors.includes(divisor)) factors.push(divisor);
-        n = n / divisor;
-      } else {
-        divisor++;
-      }
+  // Event Handler - reaguje na klik na dugme za odabir velicine parova
+  function handlePairsSelect(e, prime) {
+    if (pairSize !== prime) {
+      console.log(`Pair size: ${prime}`);
+      setPairSize(prime);
+      console.log(`Total pairs: ${(dimension * dimension) / prime}`);
+      generateValues(prime);
     }
-    return factors;
   }
 
-  // Event Handler - reaguje na klik na dugme za odabir broja parova
-  function handlePairsSelect(e, item) {
-    console.log(`Pair size: ${item}`);
-    setPairs(item);
-    console.log(`Total pairs: ${(dimension * dimension) / item}`);
-    generateValues(item);
-  }
-
-  function generateValues(item) {
-    var totalPairs = (dimension * dimension) / item;
+  // Generise vrednosti za "N^2 / K" parova
+  function generateValues(prime) {
+    var totalPairs = (dimension * dimension) / prime;
     console.log(`Generate values for ${totalPairs} pairs.`);
     var _values = [];
     for (var i = 0; i < totalPairs; i++) {
-      for (var j = 0; j < item; j++) {
+      for (var j = 0; j < prime; j++) {
         _values.push(i + 1);
       }
     }
@@ -80,6 +96,7 @@ function App() {
     fillTable(_values);
   }
 
+  // Puni kvadratnu tablicu vrednostima
   function fillTable(_values) {
     var _table = [];
     for (var i = 0; i < dimension; i++) {
@@ -89,36 +106,23 @@ function App() {
       }
     }
     setTable(_table);
-    //console.log(_table);
   }
 
-  // Fisher-Yates algoritam za mesanje (shuffle) clanova niza
-  function shuffle(array) {
-    var m = array.length,
-      t,
-      i;
-
-    // While there remain elements to shuffle…
-    while (m) {
-      // Pick a remaining element…
-      i = Math.floor(Math.random() * m--);
-
-      // And swap it with the current element.
-      t = array[m];
-      array[m] = array[i];
-      array[i] = t;
-    }
-    return array;
+  function handleButtonStart() {
+    setStopwatch(null);
+    setIsPlaying(true);
+    setIsStopped(false);
   }
-
+  function handleButtonStop() {
+    setIsPlaying(false);
+    setIsStopped(true);
+    generateValues(pairSize);
+  }
   return (
     <div className="App">
       <div className="containerDimension">
         <h1>Card Game App</h1>
-        <h2>Start the game by entering dimension N for the table NxN</h2>
-        {/* <label htmlFor="dimensionInput">
-          <strong>Dimension: </strong>
-        </label> */}
+        <h2>Start the game by choosing dimension N for squared table</h2>
         <input
           id="dimensionInput"
           type="text"
@@ -128,23 +132,21 @@ function App() {
         {!isNaN(dimension) && dimension > 1 ? (
           <p>
             <strong>
-              Table dimension: {dimension} x {dimension}
+              Table dimension - {dimension} x {dimension}
             </strong>
+            <br />
+            <strong>Total cards - {dimension * dimension}</strong>
           </p>
         ) : (
           <p>
-            <strong>Dimension has to be a number and greater than 1.</strong>
+            <strong>
+              Dimension has to be a number between{" "}
+              <span className="textAttention">4</span> and{" "}
+              <span className="textAttention">16</span>
+            </strong>
           </p>
         )}
       </div>
-      {/* <div className="containerFactors">
-        {dimension && (
-          <div>
-            <strong>Factors for N = {dimension}:</strong>
-            <h1>{factorsToString(primes)}</h1>
-          </div>
-        )}
-      </div> */}
       {primes.length > 0 && (
         <div className="containerPairs">
           <p>
@@ -154,7 +156,7 @@ function App() {
             return (
               <button
                 key={item}
-                className="buttonPairs"
+                className="light medium fun"
                 onClick={() => handlePairsSelect(this, item)}
               >
                 {item}
@@ -163,30 +165,30 @@ function App() {
           })}
         </div>
       )}
-      {/* <div className="containerValues">
-        {values.length > 0 && (
-          <p>
-            <strong>Generated values: </strong>
-            <br />
-            <strong className="small-text">{valuesToString(values)}</strong>
-          </p>
-        )}
-      </div> */}
-      {table[0].length > 0 && (
+      <div className="containerStart">
+        {pairSize &&
+          (!isPlaying ? (
+            <button className="dark pill fun round" onClick={handleButtonStart}>
+              Play
+            </button>
+          ) : (
+            <button className="dark pill fun round" onClick={handleButtonStop}>
+              Stop
+            </button>
+          ))}
+        {(isPlaying || isStopped) && `${stopwatch / 1000} s`}
+      </div>
+      {isPlaying && table[0].length > 0 && (
         <div className="containerTable">
-          <table>
-            <tbody>
-              {table.map((row, i) => (
-                <tr key={i} className="tableRow">
-                  {row.map((col, j) => (
-                    <td key={j} className="tableField">
-                      {col}
-                    </td>
-                  ))}
-                </tr>
+          {table.map((row, i) => (
+            <span key={i} className="tableRow">
+              {row.map((col, j) => (
+                <span key={j} className="tableField">
+                  {col}
+                </span>
               ))}
-            </tbody>
-          </table>
+            </span>
+          ))}
         </div>
       )}
     </div>
