@@ -80,11 +80,11 @@ function App() {
           : matching && false;
     }
     if (matching) {
-      console.log("matching");
+      //console.log("matching");
       if (selectedCards.length === pairSize) {
         var tempArray = Object.values({ ...cards });
-        for (var i = 0; i < selectedCards.length; i++) {
-          tempArray[selectedCards[i].id] = updateCard(selectedCards[i]);
+        for (var j = 0; j < selectedCards.length; j++) {
+          tempArray[selectedCards[j].id] = updateCard(selectedCards[j]);
         }
         setCards(Object.values({ ...tempArray }));
         setSolvedCardsCounter(solvedCardsCounter + pairSize);
@@ -92,17 +92,17 @@ function App() {
       }
     } else {
       if (selectedCards.length === pairSize) {
-        var tempArray = Object.values({ ...cards });
-        for (var i = 0; i < selectedCards.length; i++) {
-          tempArray[selectedCards[i].id] = {
-            ...selectedCards[i],
+        var _tempArray = Object.values({ ...cards });
+        for (var k = 0; k < selectedCards.length; k++) {
+          _tempArray[selectedCards[k].id] = {
+            ...selectedCards[k],
             selected: false
           };
         }
         //timeout
         setIsBlocked(true);
         setTimeout(() => {
-          setCards(Object.values({ ...tempArray }));
+          setCards(Object.values({ ..._tempArray }));
           setSelectedCards([]);
           setIsBlocked(false);
         }, 750);
@@ -299,7 +299,10 @@ function App() {
         </div>
       </div>
       {isPlaying && cards.length > 0 && (
-        <div className="containerCards">
+        <div
+          className="containerCards"
+          style={{ maxWidth: `${dimension * dimension}em` }}
+        >
           {cards.map((card) => (
             <span
               key={card.id}

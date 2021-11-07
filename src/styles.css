@@ -165,13 +165,12 @@ span.pill {
 @media screen and (max-width: 500px) {
   .containerCards {
     font-family: "Fruktur", cursive;
-    display: inline;
+    display: inline-block;
   }
 }
 
 @media screen and (min-width: 500px) {
   .containerCards {
-    width: 90%;
     font-family: "Fruktur", cursive;
     display: inline-block;
   }
