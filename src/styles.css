@@ -97,10 +97,19 @@ button.large {
   height: 10em;
 }
 
-.rectangle,
-button.rectangle {
-  width: 14.2em;
-  height: 4.4em;
+@media screen and (max-width: 500px) {
+  .rectangle,
+  button.rectangle {
+    width: 8em;
+    height: 3em;
+  }
+}
+@media screen and (min-width: 500px) {
+  .rectangle,
+  button.rectangle {
+    width: 14.2em;
+    height: 4.4em;
+  }
 }
 
 .rectangle.round {
@@ -111,7 +120,7 @@ button.rectangle {
 span.pill {
   display: inline-block;
   overflow: hidden;
-  width: 4em;
+  width: 5em;
   height: 1.5em;
 
   padding: 0.5em;
@@ -153,11 +162,19 @@ span.pill {
   transform: scale(1.05);
 }
 
-.containerCards {
-  font-family: "Fruktur", cursive;
-  display: inline;
-  flex-wrap: wrap;
-  justify-content: space-between;
+@media screen and (max-width: 500px) {
+  .containerCards {
+    font-family: "Fruktur", cursive;
+    display: inline;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .containerCards {
+    width: 90%;
+    font-family: "Fruktur", cursive;
+    display: inline-block;
+  }
 }
 
 .card {
@@ -179,6 +196,7 @@ span.pill {
 .card:hover {
   cursor: pointer;
   box-shadow: inset 0 0 1.5em var(--darkAccent);
+  transform: scale(1.1);
 }
 
 .card.selected {
