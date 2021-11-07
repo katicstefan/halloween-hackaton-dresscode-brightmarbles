@@ -215,7 +215,7 @@ function App() {
   return (
     <div className="App">
       <div className="containerDimension">
-        <h1>Card Game App</h1>
+        <h1>Card Memory Game</h1>
         <h2>Start the game by choosing dimension N for squared table</h2>
         <input
           id="dimensionInput"
