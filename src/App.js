@@ -14,7 +14,7 @@ function App() {
   const [solvedCardsCounter, setSolvedCardsCounter] = React.useState(0); // Brojac resenih kartica
 
   const [stopwatch, setStopwatch] = React.useState(null); // Vrednost za vreme igranja
-  const [cardSelects, setCardSelects] = React.useState(0); // Vrednost za broj koliko puta su karte bile otkrivene
+  const [cardSelectsCounter, setCardSelectsCounter] = React.useState(0); // Vrednost za broj koliko puta su karte bile otkrivene
   const [isPlaying, setIsPlaying] = React.useState(false); // Boolean koji oznacava pocetak igre
   const [isStopped, setIsStopped] = React.useState(false); // Boolean koji oznacava da je igra zavrsena
 
@@ -37,6 +37,7 @@ function App() {
     setIsPlaying(true);
     setIsStopped(false);
     setSolvedCardsCounter(0);
+    setCardSelectsCounter(0);
   }
 
   function stopGame() {
@@ -199,6 +200,7 @@ function App() {
       Object.values({ ...selectedCards, [selectedCards.length]: card })
     );
     setCards(Object.values({ ...cards, [card.id]: { ...card } }));
+    setCardSelectsCounter(cardSelectsCounter + 1);
   }
 
   function updateCard(card) {
@@ -260,18 +262,41 @@ function App() {
       <div className="containerStart">
         {pairSize &&
           (!isPlaying ? (
-            <button className="dark pill fun round" onClick={handleButtonStart}>
+            <button
+              className="dark rectangle fun round"
+              onClick={handleButtonStart}
+            >
               Play
             </button>
           ) : (
-            <button className="dark pill fun round" onClick={handleButtonStop}>
+            <button
+              className="dark rectangle fun round"
+              onClick={handleButtonStop}
+            >
               Stop
             </button>
           ))}
-        <p>
-          {isStopped && "Game Over! Your time is "}
-          {(isPlaying || isStopped) && `${stopwatch / 1000} s`}
-        </p>
+        <div className="containerScore">
+          {isStopped ? (
+            <p>Game Over! Your time is</p>
+          ) : isPlaying ? (
+            <p>Time</p>
+          ) : null}
+          {(isPlaying || isStopped) && (
+            <span className="pill">{stopwatch / 1000} s</span>
+          )}
+          {isStopped || isPlaying ? <p>Reveals</p> : null}
+          {(isPlaying || isStopped) && (
+            <span className="pill">{cardSelectsCounter}</span>
+          )}
+          {isStopped || isPlaying ? <p>Pairs</p> : null}
+          {(isPlaying || isStopped) && (
+            <span className="pill">
+              {solvedCardsCounter / pairSize}/
+              {(dimension * dimension) / pairSize}
+            </span>
+          )}
+        </div>
       </div>
       {isPlaying && cards.length > 0 && (
         <div className="containerCards">

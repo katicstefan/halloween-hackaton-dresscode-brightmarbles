@@ -97,11 +97,32 @@ button.large {
   height: 10em;
 }
 
-.pill,
-button.pill {
+.rectangle,
+button.rectangle {
   width: 14.2em;
   height: 4.4em;
+}
+
+.rectangle.round {
   border-radius: 2em;
+}
+
+.pill,
+span.pill {
+  display: inline-block;
+  overflow: hidden;
+  width: 4em;
+  height: 1.5em;
+
+  padding: 0.5em;
+  border-radius: 2em;
+  color: var(--lightShade);
+  background-color: var(--main);
+}
+
+.containerScore {
+  margin: 0;
+  margin-bottom: 1em;
 }
 
 .light {
