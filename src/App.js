@@ -216,7 +216,9 @@ function App() {
     <div className="App">
       <div className="containerDimension">
         <h1>Card Memory Game</h1>
-        <h2>Start the game by choosing dimension N for squared table</h2>
+        <h2>
+          Start the game by entering a number N for squared table dimensions
+        </h2>
         <input
           id="dimensionInput"
           type="text"
@@ -225,10 +227,10 @@ function App() {
         ></input>
         {!isNaN(dimension) && dimension > 1 ? (
           <p>
-            <strong>
+            {/* <strong>
               Table dimension - {dimension} x {dimension}
-            </strong>
-            <br />
+            </strong> 
+            <br />*/}
             <strong>Total cards - {dimension * dimension}</strong>
           </p>
         ) : (

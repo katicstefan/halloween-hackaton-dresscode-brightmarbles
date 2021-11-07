@@ -13,4 +13,4 @@ After pressing the 'Stop' button, final stats are rendered.
 # Features
 
 Additional features: choosing pair size\
-Todo additional features: difficulty mode (easy, medium, hard, custom - for input), max time to finsih, max reveals to finish, documentation
+Todo additional features: scoring system, difficulty mode (easy, medium, hard, custom - for input), max allowed time, max allowed reveals, documentation
