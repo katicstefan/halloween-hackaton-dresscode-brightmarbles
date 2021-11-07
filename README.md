@@ -1,6 +1,6 @@
 # Card Memory Game - Halloween Hackaton by Dresscode & Bright Marbles
 
-Created with CodeSandbox using React\
+Created with CodeSandbox using React @ https://codesandbox.io/s/github/katicstefan/halloween-hackaton-dresscode-brightmarbles\
 Live version @ https://csb-hholp.netlify.app/
 
 # Introduction
